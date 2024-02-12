@@ -22,7 +22,7 @@ def world_bank_search(data):
         search_box = WebDriverWait(driver, 10).until(
             EC.visibility_of_element_located((By.ID, "category"))
         )
-        search_box.clear()  # Limpia el campo de búsqueda si es necesario
+        search_box.clear()
         search_box.send_keys(data["name"])
 
         WebDriverWait(driver, 20).until(
