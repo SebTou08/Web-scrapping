@@ -39,12 +39,15 @@ def world_bank_search(data):
                     "jurisdiction": cells[1].text,
                     "linked_to": cells[2].text,
                     "source": cells[3].text,
+                    "database": "The world bank"
                 }
                 results.append(result)
 
         for result in results:
             print(result)
-        return {"results": results, "hits": 5}
+        return {"results": results, "hits": len(results)}
+    except:
+        return {"results": [], "hits": 0}
 
     finally:
         driver.quit()

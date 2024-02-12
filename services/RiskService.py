@@ -7,7 +7,6 @@ from selenium.webdriver.support import expected_conditions as EC
 from webdriver_manager.chrome import ChromeDriverManager
 
 
-
 def risk_service(data):
     options = Options()
     options.add_argument("--headless")
@@ -49,20 +48,23 @@ def risk_service(data):
         print(rows)
         for row in rows:
             cells = row.find_elements(By.TAG_NAME, "td")
-            result = {
-                "name": cells[0].text,
-                "address": cells[1].text,
-                "type": cells[2].text,
-                "program": cells[3].text,
-                "list": cells[4].text,
-                "score": cells[5].text,
-                "source": 'OFAC'
-            }
-            results.append(result)
+            if cells:
+                result = {
+                    "name": cells[0].text,
+                    "address": cells[1].text,
+                    "type": cells[2].text,
+                    "program": cells[3].text,
+                    "list": cells[4].text,
+                    "score": cells[5].text,
+                    "database": 'OFAC'
+                }
+                results.append(result)
         print(results)
         hits = driver.find_element(By.ID, "ctl00_MainContent_lblResults").text
         print(f"Hits: {hits}")
-        #return results
+        # return results
         return {"results": results, "hits": hits}
+    except:
+        return {"results": [], "hits": 0}
     finally:
         driver.quit()
