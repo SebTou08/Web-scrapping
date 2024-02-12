@@ -1,0 +1,9 @@
+{
+    "workbench.colorCustomizations": {
+        "activityBar.background": "#2C2E28",
+        "titleBar.activeBackground": "#3E4137",
+        "titleBar.activeForeground": "#FAFBFA"
+    },
+    "appService.defaultWebAppToDeploy": "undefined/subscriptions/6b902711-3a7d-491b-b6d1-6760f0abc3e8/resourceGroups/ey-reto/providers/Microsoft.Web/sites/risk-searcher",
+    "appService.deploySubpath": "."
+}

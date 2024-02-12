@@ -1,13 +1,17 @@
 from selenium import webdriver
+from selenium.common import NoSuchElementException
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from webdriver_manager.chrome import ChromeDriverManager
+
 
 
 def risk_service(data):
     options = Options()
     options.add_argument("--headless")
+
     driver = webdriver.Chrome(options=options)
 
     try:
@@ -41,7 +45,7 @@ def risk_service(data):
         )
 
         results = []
-        rows = driver.find_elements(By.CSS_SELECTOR, "#gvSearchResults tr:not(:first-child)")
+        rows = driver.find_elements(By.CSS_SELECTOR, "#gvSearchResults tr")
         print(rows)
         for row in rows:
             cells = row.find_elements(By.TAG_NAME, "td")
@@ -51,10 +55,14 @@ def risk_service(data):
                 "type": cells[2].text,
                 "program": cells[3].text,
                 "list": cells[4].text,
-                "score": cells[5].text
+                "score": cells[5].text,
+                "source": 'OFAC'
             }
             results.append(result)
         print(results)
-        return results
+        hits = driver.find_element(By.ID, "ctl00_MainContent_lblResults").text
+        print(f"Hits: {hits}")
+        #return results
+        return {"results": results, "hits": hits}
     finally:
         driver.quit()
