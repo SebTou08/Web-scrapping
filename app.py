@@ -24,9 +24,9 @@ def get_sanctions():
         return jsonify({"error": str(e)}), 500
 
 
-@app.route('/sanctions/world-bank', methods=['POST'])
+@app.route('/world-bank', methods=['POST'])
 @limiter.limit("20/minute")
-def get_sanctions():
+def get_sanctions_worldbank():
     try:
         data = request.json
         results = world_bank_search(data)
